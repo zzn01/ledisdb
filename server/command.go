@@ -8,6 +8,7 @@ import (
 type CommandFunc func(c *client) error
 
 var regCmds = map[string]CommandFunc{}
+var RegCmds = regCmds
 
 func register(name string, f CommandFunc) {
 	if _, ok := regCmds[strings.ToLower(name)]; ok {
