@@ -218,6 +218,40 @@ func (db *DB) HGet(key []byte, field []byte) ([]byte, error) {
 	return db.bucket.Get(db.hEncodeHashKey(key, field))
 }
 
+func (db *DB) HMset2(key []byte, args ...FVPair) (int64, error) {
+	t := db.hashBatch
+	t.Lock()
+	defer t.Unlock()
+
+	var err error
+	var ek []byte
+	var num int64 = 0
+	for i := 0; i < len(args); i++ {
+		if err := checkHashKFSize(key, args[i].Field); err != nil {
+			return 0, err
+		} else if err := checkValueSize(args[i].Value); err != nil {
+			return 0, err
+		}
+
+		ek = db.hEncodeHashKey(key, args[i].Field)
+
+		if v, err := db.bucket.Get(ek); err != nil {
+			return 0, err
+		} else if v == nil {
+			num++
+		}
+
+		t.Put(ek, args[i].Value)
+	}
+
+	if _, err = db.hIncrSize(key, num); err != nil {
+		return 0, err
+	}
+
+	//todo add binglog
+	err = t.Commit()
+	return num, err
+}
 func (db *DB) HMset(key []byte, args ...FVPair) error {
 	t := db.hashBatch
 	t.Lock()
