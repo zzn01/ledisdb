@@ -589,6 +589,18 @@ func (db *DB) HPersist(key []byte) (int64, error) {
 	return n, err
 }
 
+func (db *DB) HExists(key, field []byte) (int64, error) {
+	if err := checkKeySize(key); err != nil {
+		return 0, err
+	}
+	sk := db.hEncodeHashKey(key, field)
+	v, err := db.bucket.Get(sk)
+	if v != nil && err == nil {
+		return 1, nil
+	}
+	return 0, err
+}
+
 func (db *DB) HKeyExists(key []byte) (int64, error) {
 	if err := checkKeySize(key); err != nil {
 		return 0, err
