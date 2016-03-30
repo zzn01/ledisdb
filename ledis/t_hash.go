@@ -368,6 +368,37 @@ func (db *DB) hIncrSize(key []byte, delta int64) (int64, error) {
 	return size, nil
 }
 
+func (db *DB) HIncrByFloat(key []byte, field []byte, delta float64) (float64, error) {
+	if err := checkHashKFSize(key, field); err != nil {
+		return 0, err
+	}
+
+	t := db.hashBatch
+	var ek []byte
+	var err error
+
+	t.Lock()
+	defer t.Unlock()
+
+	ek = db.hEncodeHashKey(key, field)
+
+	var n float64
+	if n, err = StrFloat64(db.bucket.Get(ek)); err != nil {
+		return 0, err
+	}
+
+	n += delta
+
+	_, err = db.hSetItem(key, field, num.FormatFloatToSlice(n))
+	if err != nil {
+		return 0, err
+	}
+
+	err = t.Commit()
+
+	return n, err
+}
+
 func (db *DB) HIncrBy(key []byte, field []byte, delta int64) (int64, error) {
 	if err := checkHashKFSize(key, field); err != nil {
 		return 0, err

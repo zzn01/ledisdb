@@ -86,7 +86,15 @@ func StrInt8(v []byte, err error) (int8, error) {
 		return int8(res), err
 	}
 }
-
+func StrFloat64(v []byte, err error) (float64, error) {
+	if err != nil {
+		return 0, err
+	} else if v == nil {
+		return 0, nil
+	} else {
+		return strconv.ParseFloat(hack.String(v), 64)
+	}
+}
 func AsyncNotify(ch chan struct{}) {
 	select {
 	case ch <- struct{}{}:

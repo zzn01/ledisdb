@@ -155,3 +155,6 @@ func FormatUint32ToSlice(v uint32) []byte {
 func FormatUint64ToSlice(v uint64) []byte {
 	return strconv.AppendUint(nil, uint64(v), 10)
 }
+func FormatFloatToSlice(v float64) []byte {
+	return strconv.AppendFloat(nil, v, 'g', -1, 64)
+}
