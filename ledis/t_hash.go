@@ -129,6 +129,23 @@ func (db *DB) hEncodeStopKey(key []byte) []byte {
 	return k
 }
 
+func (db *DB) hSetItemNX(key []byte, field []byte, value []byte) (int64, error) {
+	t := db.hashBatch
+
+	ek := db.hEncodeHashKey(key, field)
+
+	var n int64 = 1
+	if v, _ := db.bucket.Get(ek); v != nil {
+		return 0, nil
+	} else {
+		if _, err := db.hIncrSize(key, 1); err != nil {
+			return 0, err
+		}
+	}
+
+	t.Put(ek, value)
+	return n, nil
+}
 func (db *DB) hSetItem(key []byte, field []byte, value []byte) (int64, error) {
 	t := db.hashBatch
 
@@ -188,6 +205,29 @@ func (db *DB) HLen(key []byte) (int64, error) {
 	}
 
 	return Int64(db.bucket.Get(db.hEncodeSizeKey(key)))
+}
+
+func (db *DB) HSetNX(key []byte, field []byte, value []byte) (int64, error) {
+	if err := checkHashKFSize(key, field); err != nil {
+		return 0, err
+	} else if err := checkValueSize(value); err != nil {
+		return 0, err
+	}
+
+	t := db.hashBatch
+	t.Lock()
+	defer t.Unlock()
+
+	n, err := db.hSetItemNX(key, field, value)
+	if err != nil {
+		return 0, err
+	}
+	if n == 0 {
+		return 0, err
+	}
+
+	err = t.Commit()
+	return n, err
 }
 
 func (db *DB) HSet(key []byte, field []byte, value []byte) (int64, error) {
