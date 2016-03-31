@@ -67,6 +67,31 @@ func (db *DB) encodeKVMaxKey() []byte {
 	return ek
 }
 
+func (db *DB) incrbyfloat(key []byte, delta float64) (float64, error) {
+	if err := checkKeySize(key); err != nil {
+		return 0, err
+	}
+
+	var err error
+	key = db.encodeKVKey(key)
+
+	t := db.kvBatch
+
+	t.Lock()
+	defer t.Unlock()
+
+	n, err := StrFloat64(db.bucket.Get(key))
+	if err != nil {
+		return 0, err
+	}
+
+	n += delta
+
+	t.Put(key, num.FormatFloatToSlice(n))
+
+	err = t.Commit()
+	return n, err
+}
 func (db *DB) incr(key []byte, delta int64) (int64, error) {
 	if err := checkKeySize(key); err != nil {
 		return 0, err
@@ -219,7 +244,9 @@ func (db *DB) Incr(key []byte) (int64, error) {
 func (db *DB) IncrBy(key []byte, increment int64) (int64, error) {
 	return db.incr(key, increment)
 }
-
+func (db *DB) IncrByFloat(key []byte, increment float64) (float64, error) {
+	return db.incrbyfloat(key, increment)
+}
 func (db *DB) MGet(keys ...[]byte) ([][]byte, error) {
 	values := make([][]byte, len(keys))
 
