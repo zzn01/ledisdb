@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/siddontang/go/num"
 	"github.com/siddontang/ledisdb/store"
+	"github.com/zzn01/go/num"
 )
 
 type KVPair struct {

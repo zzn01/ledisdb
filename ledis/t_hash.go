@@ -3,11 +3,16 @@ package ledis
 import (
 	"encoding/binary"
 	"errors"
+	"strconv"
 	"time"
 
-	"github.com/siddontang/go/num"
 	"github.com/siddontang/ledisdb/store"
+	"github.com/zzn01/go/num"
 )
+
+func FormatFloatToSlice(v float64) []byte {
+	return strconv.AppendFloat(nil, v, 'g', -1, 64)
+}
 
 type FVPair struct {
 	Field []byte
