@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/siddontang/go/log"
-	"github.com/siddontang/ledisdb/config"
+	"github.com/zzn01/ledisdb/config"
 )
 
 const (

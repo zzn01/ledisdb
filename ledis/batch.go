@@ -4,8 +4,8 @@ import (
 	"sync"
 
 	"github.com/siddontang/go/log"
-	"github.com/siddontang/ledisdb/rpl"
-	"github.com/siddontang/ledisdb/store"
+	"github.com/zzn01/ledisdb/rpl"
+	"github.com/zzn01/ledisdb/store"
 )
 
 type batch struct {

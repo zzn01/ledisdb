@@ -10,9 +10,9 @@ import (
 
 	"github.com/siddontang/go/filelock"
 	"github.com/siddontang/go/log"
-	"github.com/siddontang/ledisdb/config"
-	"github.com/siddontang/ledisdb/rpl"
-	"github.com/siddontang/ledisdb/store"
+	"github.com/zzn01/ledisdb/config"
+	"github.com/zzn01/ledisdb/rpl"
+	"github.com/zzn01/ledisdb/store"
 )
 
 type Ledis struct {

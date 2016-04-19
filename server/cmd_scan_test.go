@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/siddontang/goredis"
-	"github.com/siddontang/ledisdb/config"
+	"github.com/zzn01/ledisdb/config"
 )
 
 func TestScan(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 
 	"github.com/siddontang/go/log"
 	"github.com/siddontang/go/snappy"
-	"github.com/siddontang/ledisdb/config"
+	"github.com/zzn01/ledisdb/config"
 )
 
 type Stat struct {

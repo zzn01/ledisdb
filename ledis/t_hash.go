@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/siddontang/ledisdb/store"
+	"github.com/zzn01/ledisdb/store"
 	"github.com/zzn01/go/num"
 )
 

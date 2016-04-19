@@ -7,7 +7,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/siddontang/ledisdb/config"
+	"github.com/zzn01/ledisdb/config"
 )
 
 type testSnapshotDumper struct {

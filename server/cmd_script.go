@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/siddontang/ledisdb/vendor/lua"
+	"github.com/zzn01/ledisdb/vendor/lua"
 )
 
 func parseEvalArgs(l *lua.State, c *client) error {

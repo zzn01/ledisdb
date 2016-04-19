@@ -3,7 +3,7 @@ package driver
 import (
 	"fmt"
 
-	"github.com/siddontang/ledisdb/config"
+	"github.com/zzn01/ledisdb/config"
 )
 
 type Store interface {

@@ -10,7 +10,7 @@ import (
 	"github.com/siddontang/go/hack"
 	"github.com/siddontang/go/log"
 	"github.com/siddontang/go/num"
-	"github.com/siddontang/ledisdb/store"
+	"github.com/zzn01/ledisdb/store"
 )
 
 const (

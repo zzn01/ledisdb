@@ -4,7 +4,7 @@ import (
 	"errors"
 	"regexp"
 
-	"github.com/siddontang/ledisdb/store"
+	"github.com/zzn01/ledisdb/store"
 )
 
 var errDataType = errors.New("error data type")

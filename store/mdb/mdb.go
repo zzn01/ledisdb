@@ -5,9 +5,9 @@ package mdb
 import (
 	"os"
 
-	"github.com/siddontang/ledisdb/config"
-	"github.com/siddontang/ledisdb/store/driver"
-	mdb "github.com/siddontang/ledisdb/vendor/gomdb"
+	"github.com/zzn01/ledisdb/config"
+	"github.com/zzn01/ledisdb/store/driver"
+	mdb "github.com/zzn01/ledisdb/vendor/gomdb"
 )
 
 type Store struct {

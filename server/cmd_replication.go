@@ -10,7 +10,7 @@ import (
 
 	"github.com/siddontang/go/hack"
 	"github.com/siddontang/go/num"
-	"github.com/siddontang/ledisdb/ledis"
+	"github.com/zzn01/ledisdb/ledis"
 )
 
 func slaveofCommand(c *client) error {

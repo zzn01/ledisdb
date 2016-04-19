@@ -7,7 +7,7 @@ import (
 
 	"github.com/siddontang/go/hack"
 	"github.com/siddontang/go/num"
-	"github.com/siddontang/ledisdb/ledis"
+	"github.com/zzn01/ledisdb/ledis"
 )
 
 func parseScanArgs(args [][]byte) (cursor []byte, match string, count int, desc bool, err error) {
